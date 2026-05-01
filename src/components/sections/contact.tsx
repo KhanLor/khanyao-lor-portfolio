@@ -1,7 +1,6 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import ContactForm from '@/components/contact-form'
 import Container from '@/components/container'
 import { Mail, MapPin, Phone } from 'lucide-react'
 import { staggerContainerVariants, staggerItemVariants } from '@/lib/animations'
@@ -84,7 +83,6 @@ export default function Contact() {
           })}
         </motion.div>
 
-        {/* Contact Form */}
         <motion.div
           className="max-w-2xl mx-auto"
           initial={{ opacity: 0, y: 30 }}
@@ -93,10 +91,22 @@ export default function Contact() {
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           <motion.div
-            className="bg-slate-50 dark:bg-slate-800 rounded-xl p-8 border border-slate-200 dark:border-slate-700"
+            className="bg-slate-50 dark:bg-slate-800 rounded-xl p-8 border border-slate-200 dark:border-slate-700 text-center"
             whileHover={{ boxShadow: '0 20px 25px rgba(0, 0, 0, 0.1)' }}
           >
-            <ContactForm />
+            <h3 className="text-2xl font-bold mb-3">Prefer direct contact?</h3>
+            <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-xl mx-auto">
+              Send me an email or reach out through one of the contact options above. I usually respond as soon as I can.
+            </p>
+            <motion.a
+              href="mailto:khanyaolor123@gmail.com"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold hover:shadow-lg transition-all duration-300"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Mail size={20} />
+              Email Me
+            </motion.a>
           </motion.div>
         </motion.div>
       </Container>
