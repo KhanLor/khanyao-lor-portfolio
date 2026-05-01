@@ -96,14 +96,19 @@ export default function About() {
         {/* Education */}
         <div className="mt-20 pt-12 border-t border-slate-200 dark:border-slate-800">
           <h3 className="text-2xl font-bold mb-8">Education</h3>
-          <div className="bg-slate-50 dark:bg-slate-800 rounded-xl p-8 border border-slate-200 dark:border-slate-700">
-            <h4 className="text-xl font-semibold mb-2">
-              Bachelor of Science in Information Technology
-            </h4>
-            <p className="text-slate-600 dark:text-slate-400 mb-2">
-              St. John Paul II College of Davao
-            </p>
-            <p className="text-sm text-slate-500 dark:text-slate-500">2022 - 2026</p>
+          <div className="flex items-start gap-8">
+            <div className="flex-shrink-0 flex items-center justify-center w-24 h-24 bg-white dark:bg-slate-800 rounded-full border border-slate-200 dark:border-slate-700">
+              <img src="/sjp2cd.png" alt="St. John Paul II College of Davao" className="h-20 w-20 rounded-full object-cover" />
+            </div>
+            <div>
+              <h4 className="text-2xl font-bold text-slate-900 dark:text-white mb-1">
+                Bachelor of Science in Information Technology
+              </h4>
+              <p className="text-lg text-slate-600 dark:text-slate-400 mb-2">
+                St. John Paul II College of Davao
+              </p>
+              <p className="text-slate-500 dark:text-slate-500 font-medium">2022 - 2026</p>
+            </div>
           </div>
         </div>
       </Container>
