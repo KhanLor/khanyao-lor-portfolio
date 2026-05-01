@@ -11,7 +11,7 @@ export default function Contact() {
         <div className="mb-12 text-center">
           <h2 className="text-4xl font-bold mb-4">Get In Touch</h2>
           <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-            Have a project in mind or want to collaborate? I'd love to hear from you. Get in touch and let's create something amazing together!
+            Have a project in mind or want to collaborate? I&apos;d love to hear from you. Get in touch and let&apos;s create something amazing together!
           </p>
         </div>
 

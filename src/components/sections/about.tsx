@@ -1,6 +1,5 @@
 'use client'
 
-import Link from 'next/link'
 import { Download, FileText } from 'lucide-react'
 import Container from '@/components/container'
 
@@ -14,13 +13,13 @@ export default function About() {
             <h2 className="text-4xl font-bold mb-6">About Me</h2>
             <div className="space-y-4 text-slate-600 dark:text-slate-400 leading-relaxed">
               <p>
-                I'm an IT Support and Web Developer with hands-on experience in system development, technical support, and web-based applications. My journey combines academic knowledge with real-world industry exposure.
+                I&apos;m an IT Support and Web Developer with hands-on experience in system development, technical support, and web-based applications. My journey combines academic knowledge with real-world industry exposure.
               </p>
               <p>
-                My expertise spans across building responsive websites, managing databases, and supporting IT infrastructure including POS systems, networking, and cloud-based platforms. I'm passionate about solving problems and creating digital solutions that make a difference.
+                My expertise spans across building responsive websites, managing databases, and supporting IT infrastructure including POS systems, networking, and cloud-based platforms. I&apos;m passionate about solving problems and creating digital solutions that make a difference.
               </p>
               <p>
-                Currently, I'm a Web Developer and IT Support Intern at Penong's Franchise Corporation, where I assist in developing and maintaining web-based systems while providing comprehensive IT support.
+                Currently, I&apos;m a Web Developer and IT Support Intern at Penong&apos;s Franchise Corporation, where I assist in developing and maintaining web-based systems while providing comprehensive IT support.
               </p>
             </div>
 
