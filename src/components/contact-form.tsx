@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { submitContact } from '@/lib/supabase'
+import { hasSupabaseConfig, submitContact } from '@/lib/supabase'
 import { Send, CheckCircle, AlertCircle } from 'lucide-react'
 
 type FormState = 'idle' | 'submitting' | 'success' | 'error'
@@ -60,6 +60,12 @@ export default function ContactForm() {
     e.preventDefault()
     setError('')
 
+    if (!hasSupabaseConfig) {
+      setState('error')
+      setError('Contact form is currently unavailable until Supabase is configured.')
+      return
+    }
+
     if (!validateForm()) {
       setState('error')
       return
@@ -71,8 +77,7 @@ export default function ContactForm() {
       await submitContact(formData)
       setState('success')
       setFormData({ name: '', email: '', message: '' })
-      
-      // Reset success message after 5 seconds
+
       setTimeout(() => {
         setState('idle')
       }, 5000)
@@ -85,7 +90,6 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      {/* Status Messages */}
       {state === 'success' && (
         <div className="flex items-center gap-2 p-4 rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800">
           <CheckCircle className="text-green-600 dark:text-green-400" size={20} />
@@ -102,7 +106,6 @@ export default function ContactForm() {
         </div>
       )}
 
-      {/* Name Input */}
       <div>
         <label htmlFor="name" className="block text-sm font-medium mb-1">
           Name *
@@ -113,13 +116,12 @@ export default function ContactForm() {
           name="name"
           value={formData.name}
           onChange={handleChange}
-          disabled={state === 'submitting'}
+          disabled={state === 'submitting' || !hasSupabaseConfig}
           className="w-full px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 disabled:opacity-50 transition-colors"
           placeholder="Your name"
         />
       </div>
 
-      {/* Email Input */}
       <div>
         <label htmlFor="email" className="block text-sm font-medium mb-1">
           Email *
@@ -130,13 +132,12 @@ export default function ContactForm() {
           name="email"
           value={formData.email}
           onChange={handleChange}
-          disabled={state === 'submitting'}
+          disabled={state === 'submitting' || !hasSupabaseConfig}
           className="w-full px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 disabled:opacity-50 transition-colors"
           placeholder="your@email.com"
         />
       </div>
 
-      {/* Message Input */}
       <div>
         <label htmlFor="message" className="block text-sm font-medium mb-1">
           Message *
@@ -146,23 +147,27 @@ export default function ContactForm() {
           name="message"
           value={formData.message}
           onChange={handleChange}
-          disabled={state === 'submitting'}
+          disabled={state === 'submitting' || !hasSupabaseConfig}
           rows={5}
           className="w-full px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 disabled:opacity-50 resize-none transition-colors"
           placeholder="Your message..."
         />
       </div>
 
-      {/* Submit Button */}
       <button
         type="submit"
-        disabled={state === 'submitting' || state === 'success'}
+        disabled={state === 'submitting' || state === 'success' || !hasSupabaseConfig}
         className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
       >
         {state === 'submitting' ? (
           <>
             <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
             Sending...
+          </>
+        ) : !hasSupabaseConfig ? (
+          <>
+            <AlertCircle size={20} />
+            Configure Supabase to Enable Form
           </>
         ) : (
           <>

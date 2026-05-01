@@ -3,11 +3,11 @@ import { createClient } from '@supabase/supabase-js'
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('Missing Supabase configuration')
-}
+export const hasSupabaseConfig = Boolean(supabaseUrl && supabaseAnonKey)
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+export const supabase = hasSupabaseConfig
+  ? createClient(supabaseUrl as string, supabaseAnonKey as string)
+  : null
 
 // Types
 export interface Project {
@@ -30,6 +30,10 @@ export interface ContactMessage {
 
 // Projects functions
 export async function getProjects() {
+  if (!supabase) {
+    throw new Error('Missing Supabase configuration')
+  }
+
   const { data, error } = await supabase
     .from('projects')
     .select('*')
@@ -45,6 +49,10 @@ export async function submitContact(data: {
   email: string
   message: string
 }) {
+  if (!supabase) {
+    throw new Error('Missing Supabase configuration')
+  }
+
   const { data: result, error } = await supabase
     .from('contact_messages')
     .insert([
