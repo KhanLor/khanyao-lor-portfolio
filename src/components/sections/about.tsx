@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { Download, FileText } from 'lucide-react'
 import Container from '@/components/container'
 
@@ -54,7 +55,7 @@ export default function About() {
             {/* Resume Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 mt-8">
               <a
-                href="/resume.pdf"
+                href="/Khanyao_Lor_Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg border-2 border-blue-600 text-blue-600 dark:text-blue-400 dark:border-blue-400 font-semibold hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
@@ -63,7 +64,7 @@ export default function About() {
                 View Resume
               </a>
               <a
-                href="/resume.pdf"
+                href="/Khanyao_Lor_Resume.pdf"
                 download
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold hover:shadow-lg transition-all duration-300"
               >
@@ -77,8 +78,16 @@ export default function About() {
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl blur-3xl opacity-20" />
             <div className="relative bg-gradient-to-br from-blue-500/10 to-purple-500/10 dark:from-blue-500/20 dark:to-purple-500/20 rounded-2xl p-8 border border-slate-200 dark:border-slate-800">
-              <div className="aspect-square bg-gradient-to-br from-slate-300 to-slate-400 dark:from-slate-700 dark:to-slate-800 rounded-xl flex items-center justify-center">
-                <span className="text-6xl">💻</span>
+              <div className="aspect-square overflow-hidden rounded-xl bg-slate-100 dark:bg-slate-800 shadow-xl shadow-slate-400/20 dark:shadow-black/30">
+                <Image
+                  src="/2x2%20id.png"
+                  alt="Khanyao Lor 2x2 ID"
+                  width={1200}
+                  height={1200}
+                  className="h-full w-full object-cover"
+                  priority
+                  unoptimized
+                />
               </div>
             </div>
           </div>
