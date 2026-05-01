@@ -5,6 +5,30 @@ import { Download, FileText } from 'lucide-react'
 import Container from '@/components/container'
 
 export default function About() {
+  const education = [
+    {
+      school: 'St. John Paul II College of Davao',
+      degree: 'Bachelor of Science in Information Technology',
+      years: '2022 - 2026',
+      image: '/sjp2cd.png',
+      alt: 'St. John Paul II College of Davao',
+    },
+    {
+      school: 'Daniel R. Aguinaldo National High School',
+      degree: 'HUMSS',
+      years: '2020 - 2022',
+      image: '/dranhs.jpeg',
+      alt: 'Daniel R. Aguinaldo National High School',
+    },
+    {
+      school: 'Daniel R. Aguinaldo National High School',
+      degree: 'Junior High School',
+      years: '2016 - 2020',
+      image: '/dranhs.jpeg',
+      alt: 'Daniel R. Aguinaldo National High School',
+    },
+  ]
+
   return (
     <section id="about" className="py-20 bg-white dark:bg-slate-950">
       <Container>
@@ -96,19 +120,26 @@ export default function About() {
         {/* Education */}
         <div className="mt-20 pt-12 border-t border-slate-200 dark:border-slate-800">
           <h3 className="text-2xl font-bold mb-8">Education</h3>
-          <div className="flex items-start gap-8">
-            <div className="flex-shrink-0 flex items-center justify-center w-24 h-24 bg-white dark:bg-slate-800 rounded-full border border-slate-200 dark:border-slate-700">
-              <img src="/sjp2cd.png" alt="St. John Paul II College of Davao" className="h-20 w-20 rounded-full object-cover" />
-            </div>
-            <div>
-              <h4 className="text-2xl font-bold text-slate-900 dark:text-white mb-1">
-                Bachelor of Science in Information Technology
-              </h4>
-              <p className="text-lg text-slate-600 dark:text-slate-400 mb-2">
-                St. John Paul II College of Davao
-              </p>
-              <p className="text-slate-500 dark:text-slate-500 font-medium">2022 - 2026</p>
-            </div>
+          <div className="space-y-6">
+            {education.map((item) => (
+              <div
+                key={`${item.school}-${item.years}`}
+                className="flex items-start gap-8 rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white/70 dark:bg-slate-900/50 p-5 shadow-sm backdrop-blur-sm"
+              >
+                <div className="flex-shrink-0 flex items-center justify-center w-24 h-24 bg-white dark:bg-slate-800 rounded-full border border-slate-200 dark:border-slate-700 overflow-hidden">
+                  <img src={item.image} alt={item.alt} className="h-20 w-20 rounded-full object-cover" />
+                </div>
+                <div>
+                  <h4 className="text-2xl font-bold text-slate-900 dark:text-white mb-1">
+                    {item.degree}
+                  </h4>
+                  <p className="text-lg text-slate-600 dark:text-slate-400 mb-2">
+                    {item.school}
+                  </p>
+                  <p className="text-slate-500 dark:text-slate-500 font-medium">{item.years}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </Container>
