@@ -85,8 +85,10 @@ export default function Experience() {
 
 function ExperienceCard({
   experience,
+  isLast,
 }: {
   experience: Experience
+  isLast?: boolean
 }) {
   return (
     <div className="group rounded-2xl border border-slate-200/80 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden">
