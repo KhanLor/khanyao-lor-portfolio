@@ -2,6 +2,8 @@
 
 import { ChevronDown } from 'lucide-react'
 import Container from '@/components/container'
+import { motion } from 'framer-motion'
+import { containerVariants, itemVariants } from '@/lib/animations'
 
 export default function Hero() {
   const scrollToProjects = () => {
@@ -19,47 +21,68 @@ export default function Hero() {
       </div>
 
       <Container>
-        <div className="relative z-10 flex flex-col items-center text-center py-12">
+        <motion.div
+          className="relative z-10 flex flex-col items-center text-center py-12"
+          initial="hidden"
+          animate="visible"
+          variants={containerVariants}
+        >
           {/* Badge */}
-          <div className="mb-8 inline-block">
+          <motion.div className="mb-8 inline-block" variants={itemVariants}>
             <span className="px-4 py-2 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-sm font-medium">
               👋 Welcome to my portfolio
             </span>
-          </div>
+          </motion.div>
 
           {/* Main Heading */}
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-slate-900 via-blue-600 to-purple-600 dark:from-white dark:via-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
+          <motion.h1
+            className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-slate-900 via-blue-600 to-purple-600 dark:from-white dark:via-blue-400 dark:to-purple-400 bg-clip-text text-transparent"
+            variants={itemVariants}
+          >
             Khanyao Lor
-          </h1>
+          </motion.h1>
 
           {/* Subtitle */}
-          <p className="text-2xl md:text-3xl font-semibold text-slate-700 dark:text-slate-300 mb-4">
+          <motion.p
+            className="text-2xl md:text-3xl font-semibold text-slate-700 dark:text-slate-300 mb-4"
+            variants={itemVariants}
+          >
             IT Support & Web Developer
-          </p>
+          </motion.p>
 
           {/* Description */}
-          <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mb-8 leading-relaxed">
+          <motion.p
+            className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mb-8 leading-relaxed"
+            variants={itemVariants}
+          >
             Crafting modern web applications and providing IT solutions. Based in Davao City, Philippines. Specialized in building responsive websites, managing databases, and supporting IT infrastructure.
-          </p>
+          </motion.p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 mb-12">
-            <button
+          <motion.div className="flex flex-col sm:flex-row gap-4 mb-12" variants={itemVariants}>
+            <motion.button
               onClick={scrollToProjects}
               className="px-8 py-3 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
+              whileHover={{ scale: 1.05, y: -4 }}
+              whileTap={{ scale: 0.95 }}
             >
               View My Work
-            </button>
-            <a
+            </motion.button>
+            <motion.a
               href="#contact"
               className="px-8 py-3 rounded-lg border-2 border-slate-300 dark:border-slate-600 text-slate-900 dark:text-slate-50 font-semibold hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors duration-300"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               Get in Touch
-            </a>
-          </div>
+            </motion.a>
+          </motion.div>
 
           {/* Contact Info */}
-          <div className="flex flex-col sm:flex-row gap-6 text-sm text-slate-600 dark:text-slate-400 mb-12">
+          <motion.div
+            className="flex flex-col sm:flex-row gap-6 text-sm text-slate-600 dark:text-slate-400 mb-12"
+            variants={itemVariants}
+          >
             <div className="flex items-center gap-2">
               <span className="text-2xl">📍</span>
               <span>Davao City, Philippines</span>
@@ -73,13 +96,16 @@ export default function Hero() {
                 khanyaolor123@gmail.com
               </a>
             </div>
-          </div>
+          </motion.div>
 
           {/* Scroll Indicator */}
-          <div className="animate-bounce">
+          <motion.div
+            animate={{ y: [0, 12, 0] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
             <ChevronDown className="text-slate-400 dark:text-slate-600" size={32} />
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </Container>
 
       {/* Add animation styles */}

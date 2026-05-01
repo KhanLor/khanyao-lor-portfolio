@@ -2,7 +2,9 @@
 
 import Image from 'next/image'
 import { Download, FileText } from 'lucide-react'
+import { motion } from 'framer-motion'
 import Container from '@/components/container'
+import { containerVariants, itemVariants, slideInFromLeftVariants, slideInFromRightVariants } from '@/lib/animations'
 
 export default function About() {
   const education = [
@@ -32,9 +34,15 @@ export default function About() {
   return (
     <section id="about" className="py-20 bg-white dark:bg-slate-950">
       <Container>
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <motion.div
+          className="grid md:grid-cols-2 gap-12 items-center"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={containerVariants}
+        >
           {/* Content */}
-          <div>
+          <motion.div variants={slideInFromLeftVariants}>
             <h2 className="text-4xl font-bold mb-6">About Me</h2>
             <div className="space-y-4 text-slate-600 dark:text-slate-400 leading-relaxed">
               <p>
@@ -49,7 +57,7 @@ export default function About() {
             </div>
 
             {/* Skills */}
-            <div className="mt-8">
+            <motion.div className="mt-8" variants={itemVariants}>
               <h3 className="text-xl font-semibold mb-4">Core Skills</h3>
               <div className="flex flex-wrap gap-2">
                 {[
@@ -66,42 +74,63 @@ export default function About() {
                   'System Support',
                   'Networking',
                 ].map((skill) => (
-                  <span
+                  <motion.span
                     key={skill}
                     className="px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-sm font-medium"
+                    whileHover={{ scale: 1.1 }}
                   >
                     {skill}
-                  </span>
+                  </motion.span>
                 ))}
               </div>
-            </div>
+            </motion.div>
 
             {/* Resume Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 mt-8">
-              <a
+            <motion.div
+              className="flex flex-col sm:flex-row gap-4 mt-8"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+            >
+              <motion.a
                 href="/Khanyao_Lor_Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg border-2 border-blue-600 text-blue-600 dark:text-blue-400 dark:border-blue-400 font-semibold hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 <FileText size={20} />
                 View Resume
-              </a>
-              <a
+              </motion.a>
+              <motion.a
                 href="/Khanyao_Lor_Resume.pdf"
                 download
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold hover:shadow-lg transition-all duration-300"
+                whileHover={{ scale: 1.05, boxShadow: '0 20px 25px rgba(59, 130, 246, 0.4)' }}
+                whileTap={{ scale: 0.95 }}
               >
                 <Download size={20} />
                 Download Resume
-              </a>
-            </div>
-          </div>
+              </motion.a>
+            </motion.div>
+          </motion.div>
 
           {/* Image Placeholder */}
-          <div className="relative">
+          <motion.div
+            className="relative"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={slideInFromRightVariants}
+          >
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl blur-3xl opacity-20" />
-            <div className="relative bg-gradient-to-br from-blue-500/10 to-purple-500/10 dark:from-blue-500/20 dark:to-purple-500/20 rounded-2xl p-8 border border-slate-200 dark:border-slate-800">
+            <motion.div
+              className="relative bg-gradient-to-br from-blue-500/10 to-purple-500/10 dark:from-blue-500/20 dark:to-purple-500/20 rounded-2xl p-8 border border-slate-200 dark:border-slate-800"
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3 }}
+            >
               <div className="aspect-square overflow-hidden rounded-xl bg-slate-100 dark:bg-slate-800 shadow-xl shadow-slate-400/20 dark:shadow-black/30">
                 <Image
                   src="/2x2%20id.png"
@@ -113,18 +142,29 @@ export default function About() {
                   unoptimized
                 />
               </div>
-            </div>
-          </div>
-        </div>
+            </motion.div>
+          </motion.div>
+        </motion.div>
 
         {/* Education */}
-        <div className="mt-20 pt-12 border-t border-slate-200 dark:border-slate-800">
+        <motion.div
+          className="mt-20 pt-12 border-t border-slate-200 dark:border-slate-800"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           <h3 className="text-2xl font-bold mb-8">Education</h3>
           <div className="space-y-6">
-            {education.map((item) => (
-              <div
+            {education.map((item, index) => (
+              <motion.div
                 key={`${item.school}-${item.years}`}
                 className="flex items-start gap-8 rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white/70 dark:bg-slate-900/50 p-5 shadow-sm backdrop-blur-sm"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                whileHover={{ y: -4, boxShadow: '0 20px 25px rgba(0, 0, 0, 0.1)' }}
               >
                 <div className="flex-shrink-0 flex items-center justify-center w-24 h-24 bg-white dark:bg-slate-800 rounded-full border border-slate-200 dark:border-slate-700 overflow-hidden">
                   <img src={item.image} alt={item.alt} className="h-20 w-20 rounded-full object-cover" />
@@ -138,10 +178,10 @@ export default function About() {
                   </p>
                   <p className="text-slate-500 dark:text-slate-500 font-medium">{item.years}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
-        </div>
+        </motion.div>
       </Container>
     </section>
   )

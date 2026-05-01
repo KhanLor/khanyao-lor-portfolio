@@ -1,7 +1,9 @@
 'use client'
 
 import { Briefcase, Calendar } from 'lucide-react'
+import { motion } from 'framer-motion'
 import Container from '@/components/container'
+import { staggerContainerVariants, staggerItemVariants } from '@/lib/animations'
 
 interface Experience {
   id: string
@@ -33,23 +35,49 @@ export default function Experience() {
   return (
     <section id="experience" className="py-20 bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-950">
       <Container>
-        <div className="mb-12">
+        <motion.div
+          className="mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           <h2 className="text-4xl font-bold mb-4">Experience</h2>
           <p className="text-slate-600 dark:text-slate-400 max-w-2xl">
             My professional journey and contributions to various projects and organizations.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="space-y-6">
+        <motion.div
+          className="space-y-6"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={staggerContainerVariants}
+        >
           {experiences.map((exp) => (
-            <ExperienceCard key={exp.id} experience={exp} />
+            <motion.div key={exp.id} variants={staggerItemVariants}>
+              <ExperienceCard experience={exp} />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Skills Summary */}
-        <div className="mt-16 pt-12 border-t border-slate-200 dark:border-slate-800">
+        <motion.div
+          className="mt-16 pt-12 border-t border-slate-200 dark:border-slate-800"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           <h3 className="text-2xl font-bold mb-8">Technical Proficiencies</h3>
-          <div className="grid md:grid-cols-3 gap-6">
+          <motion.div
+            className="grid md:grid-cols-3 gap-6"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainerVariants}
+          >
             {[
               {
                 category: 'Frontend',
@@ -64,20 +92,29 @@ export default function Experience() {
                 skills: ['Git/GitHub', 'Vercel', 'POS Systems', 'Networking Basics', 'Server Administration'],
               },
             ].map((group) => (
-              <div key={group.category} className="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
+              <motion.div
+                key={group.category}
+                className="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700"
+                variants={staggerItemVariants}
+                whileHover={{ y: -8, boxShadow: '0 20px 25px rgba(0, 0, 0, 0.1)' }}
+              >
                 <h4 className="font-semibold text-lg mb-4 text-blue-600 dark:text-blue-400">{group.category}</h4>
                 <ul className="space-y-2">
                   {group.skills.map((skill) => (
-                    <li key={skill} className="text-slate-600 dark:text-slate-400 flex items-center gap-2">
+                    <motion.li
+                      key={skill}
+                      className="text-slate-600 dark:text-slate-400 flex items-center gap-2"
+                      whileHover={{ x: 4 }}
+                    >
                       <span className="w-1.5 h-1.5 bg-blue-500 rounded-full" />
                       {skill}
-                    </li>
+                    </motion.li>
                   ))}
                 </ul>
-              </div>
+              </motion.div>
             ))}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </Container>
     </section>
   )
@@ -89,13 +126,32 @@ function ExperienceCard({
   experience: Experience
 }) {
   return (
-    <div className="group rounded-2xl border border-slate-200/80 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden">
+    <motion.div
+      className="group rounded-2xl border border-slate-200/80 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden"
+      whileHover={{ y: -8 }}
+      transition={{ duration: 0.3 }}
+    >
       <div className="h-1 bg-gradient-to-r from-blue-600 via-cyan-500 to-purple-600" />
-      <div className="p-6 sm:p-8">
-        <div className="flex flex-col sm:flex-row sm:items-start gap-4 sm:gap-6 mb-5">
-          <div className="flex-shrink-0 w-14 h-14 rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center shadow-lg shadow-blue-600/20">
+      <motion.div
+        className="p-6 sm:p-8"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.4 }}
+      >
+        <motion.div
+          className="flex flex-col sm:flex-row sm:items-start gap-4 sm:gap-6 mb-5"
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4, delay: 0.1 }}
+        >
+          <motion.div
+            className="flex-shrink-0 w-14 h-14 rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center shadow-lg shadow-blue-600/20"
+            whileHover={{ scale: 1.1 }}
+          >
             <Briefcase size={22} className="text-white" />
-          </div>
+          </motion.div>
 
           <div className="min-w-0">
             <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-1">
@@ -104,45 +160,68 @@ function ExperienceCard({
             <p className="text-lg text-blue-600 dark:text-blue-400 font-semibold mb-2">
               {experience.company}
             </p>
-            <div className="inline-flex items-center gap-2 rounded-full bg-slate-100 dark:bg-slate-700 px-3 py-1 text-slate-500 dark:text-slate-300 text-sm">
+            <motion.div
+              className="inline-flex items-center gap-2 rounded-full bg-slate-100 dark:bg-slate-700 px-3 py-1 text-slate-500 dark:text-slate-300 text-sm"
+              whileHover={{ scale: 1.05 }}
+            >
               <Calendar size={16} />
               {experience.period}
-            </div>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="grid gap-5 lg:grid-cols-[1.35fr_0.9fr]">
+        <motion.div
+          className="grid gap-5 lg:grid-cols-[1.35fr_0.9fr]"
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4, delay: 0.2 }}
+        >
           <div>
             <h4 className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-3">
               Responsibilities
             </h4>
             <ul className="space-y-3 text-slate-600 dark:text-slate-400">
               {experience.description.map((item, index) => (
-                <li key={index} className="flex gap-3">
+                <motion.li
+                  key={index}
+                  className="flex gap-3"
+                  initial={{ opacity: 0, x: -10 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.3, delay: 0.3 + index * 0.1 }}
+                >
                   <span className="mt-2 h-2 w-2 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 flex-shrink-0" />
                   <span>{item}</span>
-                </li>
+                </motion.li>
               ))}
             </ul>
           </div>
 
-          <div className="rounded-2xl bg-slate-50 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-700 p-5">
+          <motion.div
+            className="rounded-2xl bg-slate-50 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-700 p-5"
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: 0.2 }}
+          >
             <h4 className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-4">
               Skills Used
             </h4>
             <div className="flex flex-wrap gap-2">
               {experience.skills.map((skill) => (
-                <span
+                <motion.span
                   key={skill}
                   className="px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-sm font-medium"
+                  whileHover={{ scale: 1.1 }}
                 >
                   {skill}
-                </span>
+                </motion.span>
               ))}
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
+          </motion.div>
+        </motion.div>
+      </motion.div>
+    </motion.div>
   )
 }

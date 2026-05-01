@@ -3,7 +3,9 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import { ExternalLink, Code2, ChevronLeft, ChevronRight, X } from 'lucide-react'
+import { motion } from 'framer-motion'
 import Container from '@/components/container'
+import { staggerContainerVariants, staggerItemVariants } from '@/lib/animations'
 
 interface Project {
   id: string
@@ -70,38 +72,66 @@ export default function Projects() {
   return (
     <section id="projects" className="py-20 bg-slate-50 dark:bg-slate-900">
       <Container>
-        <div className="mb-12">
+        <motion.div
+          className="mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           <h2 className="text-4xl font-bold mb-4">Featured Projects</h2>
           <p className="text-slate-600 dark:text-slate-400 max-w-2xl">
             A selection of projects I&apos;ve worked on that showcase my skills in web development and system design.
           </p>
-        </div>
+        </motion.div>
 
         {/* Featured Projects Grid */}
-        <div className="grid md:grid-cols-2 gap-6 mb-12">
+        <motion.div
+          className="grid md:grid-cols-2 gap-6 mb-12"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={staggerContainerVariants}
+        >
           {featuredProjects.map((project) => (
-            <ProjectCard 
-              key={project.id} 
-              project={project} 
-              featured 
-              onCardClick={project.carouselImages ? () => setSelectedProjectId(project.id) : undefined}
-            />
+            <motion.div key={project.id} variants={staggerItemVariants}>
+              <ProjectCard 
+                project={project} 
+                featured 
+                onCardClick={project.carouselImages ? () => setSelectedProjectId(project.id) : undefined}
+              />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Other Projects */}
         {otherProjects.length > 0 && (
           <div>
-            <h3 className="text-2xl font-bold mb-6">Other Projects</h3>
-            <div className="grid md:grid-cols-2 gap-6">
+            <motion.h3
+              className="text-2xl font-bold mb-6"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              Other Projects
+            </motion.h3>
+            <motion.div
+              className="grid md:grid-cols-2 gap-6"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={staggerContainerVariants}
+            >
               {otherProjects.map((project) => (
-                <ProjectCard 
-                  key={project.id} 
-                  project={project}
-                  onCardClick={project.carouselImages ? () => setSelectedProjectId(project.id) : undefined}
-                />
+                <motion.div key={project.id} variants={staggerItemVariants}>
+                  <ProjectCard 
+                    project={project}
+                    onCardClick={project.carouselImages ? () => setSelectedProjectId(project.id) : undefined}
+                  />
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
         )}
       </Container>
@@ -132,7 +162,11 @@ function ProjectCard({
 
   const content = (
     <>
-      <div className="h-48 bg-gradient-to-br from-blue-500/10 to-purple-500/10 dark:from-blue-500/20 dark:to-purple-500/20 flex items-center justify-center group-hover:from-blue-500/20 group-hover:to-purple-500/20 transition-colors overflow-hidden">
+      <motion.div
+        className="h-48 bg-gradient-to-br from-blue-500/10 to-purple-500/10 dark:from-blue-500/20 dark:to-purple-500/20 flex items-center justify-center group-hover:from-blue-500/20 group-hover:to-purple-500/20 transition-colors overflow-hidden"
+        whileHover={{ scale: 1.05 }}
+        transition={{ duration: 0.3 }}
+      >
         {project.imageSrc ? (
           <div className="relative h-full w-full">
             <Image
@@ -161,7 +195,7 @@ function ProjectCard({
             className="text-slate-300 dark:text-slate-600 group-hover:text-blue-500 transition-colors"
           />
         )}
-      </div>
+      </motion.div>
 
       <div className="p-6">
         <h3 className="text-xl font-bold mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
@@ -171,16 +205,22 @@ function ProjectCard({
           {project.description}
         </p>
 
-        <div className="flex flex-wrap gap-2 mb-4">
+        <motion.div
+          className="flex flex-wrap gap-2 mb-4"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
           {project.technologies.map((tech) => (
-            <span
+            <motion.span
               key={tech}
               className="px-2 py-1 text-xs rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
+              whileHover={{ scale: 1.1 }}
             >
               {tech}
-            </span>
+            </motion.span>
           ))}
-        </div>
+        </motion.div>
 
         {project.link && project.link !== '#' && (
           <span className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 font-semibold text-sm">
@@ -197,20 +237,33 @@ function ProjectCard({
   )
 
   return onCardClick ? (
-    <div onClick={onCardClick} className={cardClasses}>
+    <motion.div
+      onClick={onCardClick}
+      className={cardClasses}
+      whileHover={{ y: -8, transition: { duration: 0.3 } }}
+      whileTap={{ scale: 0.98 }}
+    >
       {content}
-    </div>
+    </motion.div>
   ) : project.link && project.link !== '#' ? (
-    <a
+    <motion.a
       href={project.link}
       target="_blank"
       rel="noopener noreferrer"
       className={cardClasses}
+      whileHover={{ y: -8, transition: { duration: 0.3 } }}
+      whileTap={{ scale: 0.98 }}
     >
       {content}
-    </a>
+    </motion.a>
   ) : (
-    <div className={cardClasses}>{content}</div>
+    <motion.div
+      className={cardClasses}
+      whileHover={{ y: -8, transition: { duration: 0.3 } }}
+      whileTap={{ scale: 0.98 }}
+    >
+      {content}
+    </motion.div>
   )
 }
 
@@ -233,23 +286,44 @@ function SmartWasteModal({
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-      <div className="bg-white dark:bg-slate-800 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+    <motion.div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      onClick={onClose}
+    >
+      <motion.div
+        className="bg-white dark:bg-slate-800 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+        initial={{ scale: 0.95, opacity: 0, y: 20 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        exit={{ scale: 0.95, opacity: 0, y: 20 }}
+        transition={{ duration: 0.3 }}
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Header */}
         <div className="sticky top-0 flex items-center justify-between p-6 border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
           <h2 className="text-2xl font-bold">{project.title}</h2>
-          <button
+          <motion.button
             onClick={onClose}
             className="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
           >
             <X size={24} className="text-slate-600 dark:text-slate-400" />
-          </button>
+          </motion.button>
         </div>
 
         {/* Carousel */}
         <div className="p-6">
           <div className="relative mb-6">
-            <div className="relative h-96 bg-slate-100 dark:bg-slate-900 rounded-xl overflow-hidden">
+            <motion.div
+              className="relative h-96 bg-slate-100 dark:bg-slate-900 rounded-xl overflow-hidden"
+              key={currentIndex}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3 }}
+            >
               <Image
                 src={images[currentIndex].src}
                 alt={images[currentIndex].alt}
@@ -257,23 +331,27 @@ function SmartWasteModal({
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 800px"
               />
-            </div>
+            </motion.div>
 
             {/* Navigation Arrows */}
             {images.length > 1 && (
               <>
-                <button
+                <motion.button
                   onClick={goToPrevious}
                   className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-slate-800/80 hover:bg-white dark:hover:bg-slate-700 rounded-full p-2 transition-colors z-10"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   <ChevronLeft size={24} className="text-slate-900 dark:text-white" />
-                </button>
-                <button
+                </motion.button>
+                <motion.button
                   onClick={goToNext}
                   className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-slate-800/80 hover:bg-white dark:hover:bg-slate-700 rounded-full p-2 transition-colors z-10"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   <ChevronRight size={24} className="text-slate-900 dark:text-white" />
-                </button>
+                </motion.button>
               </>
             )}
 
@@ -284,7 +362,11 @@ function SmartWasteModal({
           </div>
 
           {/* Description */}
-          <div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: 0.1 }}
+          >
             <h3 className="text-lg font-semibold mb-3 text-slate-900 dark:text-white">
               Overview
             </h3>
@@ -298,22 +380,28 @@ function SmartWasteModal({
               </h4>
               <div className="flex flex-wrap gap-2">
                 {project.technologies.map((tech) => (
-                  <span
+                  <motion.span
                     key={tech}
                     className="px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-sm font-medium"
+                    whileHover={{ scale: 1.1 }}
                   >
                     {tech}
-                  </span>
+                  </motion.span>
                 ))}
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Thumbnail Navigation */}
           {images.length > 1 && (
-            <div className="mt-6 flex gap-2 overflow-x-auto pb-2">
+            <motion.div
+              className="mt-6 flex gap-2 overflow-x-auto pb-2"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3, delay: 0.2 }}
+            >
               {images.map((image, index) => (
-                <button
+                <motion.button
                   key={index}
                   onClick={() => setCurrentIndex(index)}
                   className={`relative h-16 w-24 rounded-lg overflow-hidden flex-shrink-0 transition-all border-2 ${
@@ -321,6 +409,7 @@ function SmartWasteModal({
                       ? 'border-blue-500'
                       : 'border-slate-200 dark:border-slate-700 hover:border-slate-300'
                   }`}
+                  whileHover={{ scale: 1.05 }}
                 >
                   <Image
                     src={image.src}
@@ -329,12 +418,12 @@ function SmartWasteModal({
                     className="object-cover"
                     sizes="96px"
                   />
-                </button>
+                </motion.button>
               ))}
-            </div>
+            </motion.div>
           )}
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   )
 }
