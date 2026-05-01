@@ -42,7 +42,7 @@ export default function Experience() {
 
         <div className="space-y-6">
           {experiences.map((exp, index) => (
-            <ExperienceCard key={exp.id} experience={exp} isLast={index === experiences.length - 1} />
+            <ExperienceCard key={exp.id} experience={exp} />
           ))}
         </div>
 
@@ -85,10 +85,8 @@ export default function Experience() {
 
 function ExperienceCard({
   experience,
-  isLast,
 }: {
   experience: Experience
-  isLast?: boolean
 }) {
   return (
     <div className="group rounded-2xl border border-slate-200/80 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden">
