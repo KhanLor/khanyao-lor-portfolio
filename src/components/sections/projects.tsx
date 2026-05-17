@@ -48,7 +48,7 @@ const projects: Project[] = [
     title: 'Messianic Believer Website',
     description: 'Religion-based informational website focused on responsive design and content presentation. Clean layout with emphasis on readability.',
     technologies: ['PHP', 'MySQL', 'Bootstrap', 'JavaScript'],
-    link: 'https://messiahnicbeliever.ct.ws/index.php',
+    link: 'https://messianicbeliever.42web.io/',
     imageSrc: '/MESSIAHNIC.png',
     featured: false,
   },
