@@ -94,7 +94,7 @@ export default function About() {
               transition={{ delay: 0.3 }}
             >
               <motion.a
-                href="/Khanyao_Lor_Resume.pdf"
+                href="/resume"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg border-2 border-blue-600 text-blue-600 dark:text-blue-400 dark:border-blue-400 font-semibold hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
