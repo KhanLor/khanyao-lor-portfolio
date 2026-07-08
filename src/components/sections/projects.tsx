@@ -57,7 +57,7 @@ const projects: Project[] = [
     title: 'Penong\'s Inventory System',
     description: 'Inventory management system for stock tracking with product monitoring and basic reporting features. Designed for business operations efficiency.',
     technologies: ['PHP', 'MySQL', 'Bootstrap', 'JavaScript'],
-    link: 'https://penongsinventory.42web.io/',
+    link: 'https://penongsinventory.gt.tc/index.php',
     imageSrc: '/PENONGS1.png',
     featured: false,
   },
